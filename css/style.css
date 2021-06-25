@@ -1,0 +1,48 @@
+.header {
+    background-color: #343A40;
+    padding-bottom: 50px;
+}
+
+.principal-title {
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+    font-size: 75px;
+    color: cornsilk;
+}
+
+.secondary-header {
+    display: flex;
+}
+
+/* CARD STYLE */
+.notes-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.note-card {
+    width: 350px;
+    height: 350px;
+    margin: 20px;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-button {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #CF0000;
+    transition: 1.5s;
+}
+
+.delete-button:hover {
+    font-size: 23px;
+    border-radius: 50%;
+    transition: 1.5s;
+}
