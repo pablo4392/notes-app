@@ -1,0 +1,85 @@
+.post-it {
+    width: 350px;
+    height: 350px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.7);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-title {
+    margin: 0;
+    margin-left: 50px ;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Architects Daughter', cursive;
+}
+
+.delete-button {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #CF0000;
+    transition: 0.8s;
+}
+
+.delete-button:hover {
+    font-size: 23px;
+    border-radius: 50%;
+    transition: 0.8s;
+}
+
+.post-date {
+    margin: 0;
+    text-align: end;
+    font-size: 17px;
+    font-weight: lighter;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.post-text {
+    margin: 0;
+    font-size: 30px;
+    font-family: 'Caveat', cursive;
+}
+
+/* COLORS */
+
+.post-light {
+    background-color: #EEEEEE;
+    color: #252525;
+}
+
+.post-dark {
+    background-color: #393E46;
+    color: #F8F7DE;
+}
+
+.post-green {
+    background-color: #b9db7f;
+    color: #17473e;
+}
+
+.post-blue {
+    background-color: #94B5C0;
+    color: #150883;
+}
+
+.post-red {
+    background-color: #eb8686;
+    color: #75171f;
+}
+
+.post-yellow {
+    background-color: #FFD571;
+    color: #834b01;
+}
+
+.post-purple {
+    background-color: #87556F;
+    color: #29243a;
+}

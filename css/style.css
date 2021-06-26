@@ -14,18 +14,25 @@
     display: flex;
 }
 
-/* CARD STYLE */
+/* BOARD */
+.notes-board {
+    background-color: #EEB76B;
+    background-color: #F2A154;
+    border: solid 25px #252525;
+    border-radius: 30px
+}
+
 .notes-grid {
+    padding: 30px;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
+    grid-gap: 40px;
 }
 
 .note-card {
     width: 350px;
     height: 350px;
-    margin: 20px;
 }
 
 .note-header {
@@ -33,16 +40,11 @@
     justify-content: space-between;
 }
 
-.delete-button {
-    border: none;
-    background: none;
-    font-size: 18px;
-    color: #CF0000;
-    transition: 1.5s;
+.title-note {
+    font-size: 30px;
 }
 
-.delete-button:hover {
-    font-size: 23px;
-    border-radius: 50%;
-    transition: 1.5s;
+.date-note {
+    text-align: end;
+    font-size: 15px;
 }

@@ -1,62 +1,55 @@
-const saveNotes = JSON.parse(localStorage.getItem('notes')) || [];
+const formulary = document.getElementById('dataForm');
+const cardContainer = document.getElementById('containerNotes')
+const deleteNote = document.getElementById('deleteButton');
 
-//date variable
-const date = new Date(),
-      monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-let day = date.getDate(),
-    month = date.getMonth(),
-    year = date.getFullYear(),
-    allDate = monthName[month] +'/'+ day +'/'+ year;
+const allDate = () => {
+    const nameMonths = ["Jan", "Feb", "Mar", "Aph", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let funcDate = new Date(),
+        day = funcDate.getDate(),
+        month = funcDate.getMonth(),
+        year = funcDate.getFullYear(),
+        hours = funcDate.getHours(),
+        minutes = funcDate.getMinutes();
 
-const printNote = () => {
-    const container = document.getElementById('containerNotes');
-    let html = ""
-    saveNotes.forEach( note => {
-        html += `
-            <div class="alert ${note.color} mt-4 note-card" role="alert">
-                <div class="note-header">
-                    <h4 class="title-note">${note.user}</h4>
-                    <button onclick="deleteNote()" class="delete-button" >
-                        <i class="far fa-trash-alt"></i>
+    if( hours === 0) { hours = 12 }
+    if(minutes < 10) { minutes = '0' + minutes }
+    
+    let dateArr = [day, nameMonths[month], year]
+    let hourArr = [hours, minutes]
+    const joinDate = dateArr.join('/');
+    const joinHour = hourArr.join(':');
+    const completeDate = joinDate+ ' ' + "at" + ' ' + joinHour;
+
+    return completeDate;
+}
+
+formulary.addEventListener('submit', event => {
+    event.preventDefault();
+    const user = document.getElementById('nameBox').value;
+    const color = document.getElementById('colorBox').value;
+    const message = document.getElementById('messageBox').value;
+
+    if(user === '' || message === '') {
+        alert("You should complete all fields")
+    } else {        
+        cardContainer.innerHTML += `
+            <div class="post-it ${color}" role="alert">
+                <div class="post-header">
+                    <h4 class="post-title">${user}</h4>
+                    <button class="delete-button">
+                        <i class="far fa-trash-alt" id="deleteButton"></i>
                     </button>
                 </div>                
-                <h6 class="date-note">${allDate}</h6>
-                <p class="text-note">${note.message}</p>
-            </div>`        
-    });
-    container.innerHTML = html;
-};
-
-const addNote = () => {
-    const user = document.getElementById('nameBox').value,
-          color = document.getElementById('colorBox').value,
-          message = document.getElementById('messageBox').value;
-    let id = 0;
-
-    if(saveNotes.length > 0) {
-        id = saveNotes[saveNotes.length].id + 1;
+                <h6 class="post-date">26/05/2021 at 23:51</h6>
+                <p class="post-text">
+                    ${message} 
+                </p>
+            </div>`
     }
+        
+    formulary.reset();
+});
 
-    const newNote = {
-        id,
-        user, 
-        color, 
-        message
-    }
-    saveNotes.push(newNote);
-    printNote();
-
-    localStorage.setItem('notes', JSON.stringify(saveNotes));
-
-    document.getElementById('dataForm').reset();
-}
-
-const deleteNote = (id) => {
-    const index = saveNotes.findIndex((note) => note.id === id);
-    console.log(index)
-    // saveNotes.splice(index, 1);
-
-    // printNote();
-}
-
-printNote();
+// deleteNote.addEventListener('click', () => {
+//     alert("este boton es para eliminar")
+// });
