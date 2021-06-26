@@ -1,6 +1,5 @@
+const notes = JSON.parse(localStorage.getItem('notes')) || [];
 const formulary = document.getElementById('dataForm');
-const cardContainer = document.getElementById('containerNotes')
-const deleteNote = document.getElementById('deleteButton');
 
 const allDate = () => {
     const nameMonths = ["Jan", "Feb", "Mar", "Aph", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -23,33 +22,57 @@ const allDate = () => {
     return completeDate;
 }
 
-formulary.addEventListener('submit', event => {
-    event.preventDefault();
-    const user = document.getElementById('nameBox').value;
-    const color = document.getElementById('colorBox').value;
-    const message = document.getElementById('messageBox').value;
+const printPostIt = () => {
+    const cardContainer = document.getElementById('containerNotes');
 
-    if(user === '' || message === '') {
-        alert("You should complete all fields")
-    } else {        
+    notes.forEach((note) => {
         cardContainer.innerHTML += `
-            <div class="post-it ${color}" role="alert">
+            <div class="post-it ${note.color}" role="alert">
                 <div class="post-header">
-                    <h4 class="post-title">${user}</h4>
+                    <h4 class="post-title">${note.user}</h4>
                     <button class="delete-button">
-                        <i class="far fa-trash-alt" id="deleteButton"></i>
+                        <i class="far fa-trash-alt" onclick="deleteNote()"></i>
                     </button>
                 </div>                
-                <h6 class="post-date">26/05/2021 at 23:51</h6>
+                <h6 class="post-date">${allDate()}</h6>
                 <p class="post-text">
-                    ${message} 
+                    ${note.message} 
                 </p>
             </div>`
-    }
-        
-    formulary.reset();
-});
+    })
+}
 
-// deleteNote.addEventListener('click', () => {
-//     alert("este boton es para eliminar")
-// });
+formulary.addEventListener('submit', event => {
+    event.preventDefault();
+    const user = document.getElementById('nameBox').value,
+          color = document.getElementById('colorBox').value,
+          message = document.getElementById('messageBox').value;
+    let id = 0;
+
+    if(user === '' || message === '') {
+        alert("You should complete all fields");
+    } else {        
+        if (notes.length > 0) {
+            id = notes[notes.length -1].id+1
+        }
+        
+        const newNote = {
+            id,
+            user,
+            color,
+            message
+        }
+        
+        notes.push(newNote);
+        localStorage.setItem('notes', JSON.stringify(notes));
+        printPostIt();
+        formulary.reset()
+    }
+});        
+
+const deleteNote = (id) => {
+    const index = notes.findIndex(note => note.id === id)
+    alert(index)
+}
+
+printPostIt();
