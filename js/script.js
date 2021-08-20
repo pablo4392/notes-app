@@ -22,32 +22,33 @@ const allDate = () => {
     return completeDate;
 }
 
-const printPostIt = () => {
+function printPostIt() {
     const cardContainer = document.getElementById('containerNotes');
-
+    let html = ""
     notes.forEach((note) => {
-        cardContainer.innerHTML += `
+        html += `
             <div class="post-it ${note.color}" role="alert">
                 <div class="post-header">
                     <h4 class="post-title">${note.user}</h4>
                     <button class="delete-button">
-                        <i class="far fa-trash-alt" onclick="deleteNote()"></i>
+                        <i class="far fa-trash-alt" onclick="deleteNote(${note.id})"></i>
                     </button>
                 </div>                
-                <h6 class="post-date">${allDate()}</h6>
+                <h6 class="post-date">${note.pDate}</h6>
                 <p class="post-text">
                     ${note.message} 
                 </p>
             </div>`
-    })
+    });
+        cardContainer.innerHTML = html
 }
 
-formulary.addEventListener('submit', event => {
-    event.preventDefault();
+formulary.addEventListener('submit', () => {
     const user = document.getElementById('nameBox').value,
           color = document.getElementById('colorBox').value,
-          message = document.getElementById('messageBox').value;
-    let id = 0;
+          message = document.getElementById('messageBox').value,
+          pDate = allDate();
+    let id = 1;
 
     if(user === '' || message === '') {
         alert("You should complete all fields");
@@ -60,19 +61,21 @@ formulary.addEventListener('submit', event => {
             id,
             user,
             color,
-            message
+            message,
+            pDate
         }
         
         notes.push(newNote);
         localStorage.setItem('notes', JSON.stringify(notes));
-        printPostIt();
         formulary.reset()
+        printPostIt();
     }
-});        
+});
 
 const deleteNote = (id) => {
-    const index = notes.findIndex(note => note.id === id)
-    alert(index)
+    const index = notes.findIndex((post) => post.id === id);
+    notes.splice(index, 1);
+    printPostIt();
 }
 
 printPostIt();
